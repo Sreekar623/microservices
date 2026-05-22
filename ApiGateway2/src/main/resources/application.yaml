@@ -1,0 +1,29 @@
+server:
+  port: 8704
+
+spring:
+  application:
+    name: ApiGateway2
+
+
+
+    gateway:
+      routes:
+        - id: EmployeeService
+          uri: lb://EmployeeService
+          predicates:
+            - Path=/employee/**
+
+        - id: DepartmentService
+          uri: lb://DepartmentService
+          predicates:
+            - Path=/department/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8700/eureka/
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
